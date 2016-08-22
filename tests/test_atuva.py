@@ -77,15 +77,6 @@ class TestAtUVa(unittest.TestCase):
 		result = get_items(config, resource, params, session, headers)
 		
 		self.assertIsInstance(result, types.GeneratorType)
-		
-		try:
-			list(result)
-			flag = True
-		
-		except Exception:
-			flag = False
-		
-		self.assertTrue(flag)
 
 
 if __name__ == "__main__":
