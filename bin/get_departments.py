@@ -19,6 +19,13 @@ def main():
                         help="filename that contains configuration data (i.e. somefile.ini)",
                         required=True
                        )
+    parser.add_argument(
+                        "-o",
+                        "--outfile",
+                        nargs='?',
+                        help="filename to output data to (i.e. somefile.json)",
+                        required=True
+                       )
     
     args = parser.parse_args()
     
@@ -31,7 +38,7 @@ def main():
     departments = process_departments(departments, config)
     departments = unpack(departments)
     
-    with open("departments.json", 'w') as fout:
+    with open(args.outfile, 'w') as fout:
         for department in departments:
             fout.write(json.dumps(department) + '\n')
     
