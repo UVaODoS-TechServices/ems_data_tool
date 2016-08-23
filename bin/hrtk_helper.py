@@ -38,7 +38,7 @@ def main():
     cur = conn.cursor()
 
     cur.execute("USE EMS;")
-    
+
     try:
         cur.execute("EXEC EMS.dbo.HRTK_Update_Group;")
 

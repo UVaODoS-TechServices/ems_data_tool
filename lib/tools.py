@@ -131,7 +131,7 @@ def create_connmsg(svr, drv, db, un, pwd, tc):
 
     connmsg = "SERVER={svr};DRIVER={drv};DATABASE={db};"
     connmsg += "UID={un};PWD={pwd};Trusted_Connection={tc};"
-    
+
     return connmsg.format(svr=svr, drv=drv, db=db, un=un, pwd=pwd, tc=tc)
 
 
