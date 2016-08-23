@@ -18,7 +18,8 @@ def main():
             "openpyxl>=2.2.3",
             "pyodbc>=3.0.6",
             "requests>=2.7.0",
-            "pysmb>=1.1.16"
+            "pysmb>=1.1.16",
+            "unidcode>=0.4.19",
             ],
         entry_points={
             "console_scripts": [
