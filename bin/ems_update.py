@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """ Updates ODOS EMS system using data from @UVa and external sources. """
@@ -139,7 +138,7 @@ def update_database(config, filename):
             cur.execute(query, *group)
             cur.commit()
 
-        except Exception, err:
+        except:
             debuglog.write(json.dumps(group) + '\n')
 
 

@@ -1,37 +1,39 @@
-#! /usr/bin/env python
 # -*- coding: utf-8 -*-
+
+""" Utility for updating ems staging database. """
+
+from ConfigParser import SafeConfigParser
+from argparse import ArgumentParser
 
 import pyodbc
 
-from argparse import ArgumentParser
-from ConfigParser import SafeConfigParser
-
 def main():
+    """ Where the magic happens. """
     parser = ArgumentParser()
     parser.add_argument(
-                        "-c",
-                        "--configfile",
-                        nargs='?',
-                        help="filename that contains configuration data (i.e. somefile.ini)",
-                        required=True
-                       )
-    
+        "-c",
+        "--configfile",
+        nargs='?',
+        help="filename that contains configuration data (i.e. somefile.ini)",
+        required=True
+        )
+
     args = parser.parse_args()
-    
+
     config = SafeConfigParser()
     config.optionxform(str())
 
     config.read(args.configfile)
 
-    connstr = "SERVER=%s;DRIVER=%s;DATABASE=%s;UID=%s;PWD=%s;Trusted_Connection=%s;" 
+    connstr = "SERVER=%s;DRIVER=%s;DATABASE=%s;UID=%s;PWD=%s;Trusted_Connection=%s;"
     connstr = connstr % (
-                         config.get("DATABASE", "server"),
-                         config.get("DATABASE", "driver"),
-                         config.get("DATABASE", "database"),
-                         config.get("DATABASE", "username"),
-                         config.get("DATABASE", "password"),
-                         config.get("DATABASE", "trusted_connection"),
-                        )
+        config.get("DATABASE", "server"),
+        config.get("DATABASE", "driver"),
+        config.get("DATABASE", "database"),
+        config.get("DATABASE", "username"),
+        config.get("DATABASE", "password"),
+        config.get("DATABASE", "trusted_connection"),
+        )
 
     conn = pyodbc.connect(connstr)
     cur = conn.cursor()
