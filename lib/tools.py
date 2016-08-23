@@ -126,5 +126,14 @@ def repack(items):
         yield group
 
 
+def create_connmsg(svr, drv, db, un, pw, tc):
+    """ Creates a string that can be used to connect using pyodbc. """
+
+    connmsg = "SERVER={svr};DRIVER={drv};DATABASE={db};"
+    connmsg += "UID={un};PWD={pwd};Trusted_Connection={tc};"
+    
+    return connmsg.format(svr=svr, drv=drv, db=db, un=un, pw=pw, tc=tc)
+
+
 if __name__ == "__main__":
     pass
