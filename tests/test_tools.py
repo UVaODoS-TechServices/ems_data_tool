@@ -82,7 +82,6 @@ class TestTools(unittest.TestCase):
         result = list(unpack(item))
 
         self.assertIsInstance(result, list)
-        self.assertTrue(len(result) > 0)
 
     def test_pack(self):
         """ Tests ability to pack/repack processed groups. """
@@ -90,8 +89,7 @@ class TestTools(unittest.TestCase):
         requester = ["0DD", "CAFE", "BABE", "Event Requester 1", "", "0DD@CAFE.C0", "", "", "", "", "", "", "", "", "0DD", "0DDC0FFEE", "FACED00D", "DEADBEEF"]
         result = list(pack([requester]))
 
-        self.assertIsInstance(result, dict)
-        self.assertTrue(len(result > 0))
+        self.assertIsInstance(result[0], dict)
 
 
 if __name__ == "__main__":

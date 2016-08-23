@@ -122,8 +122,8 @@ def pack(items):
         elif item[3] == "Event Requester 2":
             groups[item[15]]['Event Requester 2'] = temp
 
-    for group in groups:
-        yield group
+    for key, value in groups.iteritems():
+        yield {key: value}
 
 
 def create_connmsg(svr, drv, db, un, pw, tc):
