@@ -7,6 +7,8 @@ from argparse import ArgumentParser
 
 import pyodbc
 
+from lib.tools import create_connmsg
+
 def main():
     """ Where the magic happens. """
     parser = ArgumentParser()
@@ -25,17 +27,14 @@ def main():
 
     config.read(args.configfile)
 
-    connstr = "SERVER=%s;DRIVER=%s;DATABASE=%s;UID=%s;PWD=%s;Trusted_Connection=%s;"
-    connstr = connstr % (
-        config.get("DATABASE", "server"),
-        config.get("DATABASE", "driver"),
-        config.get("DATABASE", "database"),
-        config.get("DATABASE", "username"),
-        config.get("DATABASE", "password"),
-        config.get("DATABASE", "trusted_connection"),
-        )
+    connmsg = create_connmsg(svr=config.get("DATABASE", "server"),
+                             drv=config.get("DATABASE", "driver"),
+                             db=config.get("DATABASE", "database"),
+                             un=config.get("DATABASE", "username"),
+                             pwd=config.get("DATABASE", "password"),
+                             tc=config.get("DATABASE", "trusted_connection"))
 
-    conn = pyodbc.connect(connstr)
+    conn = pyodbc.connect(connmsg)
     cur = conn.cursor()
 
     cur.execute("USE EMS;")
