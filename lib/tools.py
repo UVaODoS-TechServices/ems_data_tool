@@ -91,7 +91,7 @@ def unpack(items):
                        orgid, groupname, grouptype]
 
 
-def repack(items):
+def pack(items):
     """ Generator that converts requesters into orgs. """
 
     groups = {}
