@@ -10,7 +10,7 @@ import StringIO
 
 import openpyxl
 
-from lib.tools import StatusMessage, parse_spreadsheet, Timer, unpack
+from lib.tools import StatusMessage, parse_spreadsheet, Timer, pack, unpack
 
 class TestTools(unittest.TestCase):
     """ Tests for validating tools library. """
@@ -83,6 +83,15 @@ class TestTools(unittest.TestCase):
 
         self.assertIsInstance(result, list)
         self.assertTrue(len(result) > 0)
+
+    def test_pack(self):
+        """ Tests ability to pack/repack processed groups. """
+
+        requester = ["0DD", "CAFE", "BABE", "Event Requester 1", "", "0DD@CAFE.C0", "", "", "", "", "", "", "", "", "0DD", "0DDC0FFEE", "FACED00D", "DEADBEEF"]
+        result = list(pack([requester]))
+
+        self.assertIsInstance(result, dict)
+        self.assertTrue(len(result > 0))
 
 
 if __name__ == "__main__":
