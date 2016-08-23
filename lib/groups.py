@@ -47,19 +47,19 @@ def process_organizations(items, config):
 ##        if position in results[orgid].keys():
 ##            continue
 
-        results[orgid][position] = {"PersonnelNumber": pnumber, \
-                                    "FirstName": fname, \
-                                    "LastName": lname, \
-                                    "MiddleInitial": "", \
-                                    "EMailAddress": email, \
-                                    "Phone": "", \
-                                    "Fax": "", \
-                                    "Address1": "", \
-                                    "Address2": "", \
-                                    "City": "", \
-                                    "State": "", \
-                                    "ZipCode": "", \
-                                    "Country": "", \
+        results[orgid][position] = {"PersonnelNumber": pnumber,
+                                    "FirstName": fname,
+                                    "LastName": lname,
+                                    "MiddleInitial": "",
+                                    "EMailAddress": email,
+                                    "Phone": "",
+                                    "Fax": "",
+                                    "Address1": "",
+                                    "Address2": "",
+                                    "City": "",
+                                    "State": "",
+                                    "ZipCode": "",
+                                    "Country": "",
                                     "NetworkID": pnumber}
 
     return results
@@ -132,19 +132,19 @@ def process_departments(items, config):
         if position in results[orgid].keys():
             continue
 
-        results[orgid][position] = {"PersonnelNumber": pnumber, \
-                                    "FirstName": fname, \
-                                    "LastName": lname, \
-                                    "MiddleInitial": "", \
-                                    "EMailAddress": email, \
-                                    "Phone": "", \
-                                    "Fax": "", \
-                                    "Address1": "", \
-                                    "Address2": "", \
-                                    "City": "", \
-                                    "State": "", \
-                                    "ZipCode": "", \
-                                    "Country": "", \
+        results[orgid][position] = {"PersonnelNumber": pnumber,
+                                    "FirstName": fname,
+                                    "LastName": lname,
+                                    "MiddleInitial": "",
+                                    "EMailAddress": email,
+                                    "Phone": "",
+                                    "Fax": "",
+                                    "Address1": "",
+                                    "Address2": "",
+                                    "City": "",
+                                    "State": "",
+                                    "ZipCode": "",
+                                    "Country": "",
                                     "NetworkID": pnumber}
 
     return results

@@ -70,12 +70,12 @@ class TestTools(unittest.TestCase):
     def test_unpack(self):
         """ Tests ability to unpack processed groups. """
         #fudge valid item
-        requester = {"FirstName": "CAFE", "LastName": "BABE", \
-                     "MiddleInitial": "", "EMailAddress": "0DD@CAFE.C0", \
-                     "Phone": "", "Fax": "", "Address1": "", "Address2": "", \
-                     "City": "", "State": "", "ZipCode": "", "Country": "", \
+        requester = {"FirstName": "CAFE", "LastName": "BABE",
+                     "MiddleInitial": "", "EMailAddress": "0DD@CAFE.C0",
+                     "Phone": "", "Fax": "", "Address1": "", "Address2": "",
+                     "City": "", "State": "", "ZipCode": "", "Country": "",
                      "NetworkID": "0DD"}
-        organization = {"GroupName": "FACED00D", "GroupType": "DEADBEEF", \
+        organization = {"GroupName": "FACED00D", "GroupType": "DEADBEEF",
                         "Event Requester 1": requester}
         item = {"0DDC0FFEE": organization}
 
