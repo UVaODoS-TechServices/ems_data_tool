@@ -39,6 +39,7 @@ def main():
     cur = conn.cursor()
 
     cur.execute("USE EMS;")
+    
     try:
         cur.execute("EXEC EMS.dbo.HRTK_Update_Group;")
 
@@ -49,7 +50,7 @@ def main():
 
         print "Update Successful!"
 
-    except Exception:
+    except:
         print "An error occurred, could not update"
 
         raise

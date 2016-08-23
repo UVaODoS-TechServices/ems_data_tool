@@ -38,6 +38,7 @@ def fetch_departments(config):
                                  remote_name=config.get("MAIN", "sharedrive"),
                                  is_direct_tcp=True)
             conn.connect(socket.gethostbyname(config.get("MAIN", "sharedrive")), 445)
+
             print "fetching %s via smb..." % (os.path.basename(filename))
 
             _ = conn.retrieveFile(config.get("MAIN", "service"), filename, file_obj)
@@ -99,6 +100,7 @@ class WritingWorker(object):
                 if data == "STOP":
                     self.file_obj.close()
                     self.state = 0
+
                 return
 
             time.sleep(0.1)
@@ -208,6 +210,7 @@ def verify_database(config, filenames):
 
     if 'win' in sys.platform:
         endings = '\n\n'
+
     else:
         endings = '\r\n\r\n'
 
@@ -263,6 +266,7 @@ def prune_failed(departments):
     """ Removes empty rows from the departments list and returns result. """
 
     good = []
+
     for department in departments:
         if not isinstance(department, dict):
             continue
@@ -276,7 +280,7 @@ def prune_failed(departments):
 
 
 def main():
-    """ Main functionality under standard. """
+    """ Where the magic happens. """
 
     parser = ArgumentParser()
     parser.add_argument(
