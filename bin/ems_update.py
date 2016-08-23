@@ -21,9 +21,8 @@ from smb.SMBConnection import SMBConnection
 from unidecode import unidecode
 
 from lib.atuva import get_items
-from lib.database import DBHandler
 from lib.groups import process_departments, process_organizations
-from lib.tools import parse_spreadsheet, unpack
+from lib.tools import create_connmsg, parse_spreadsheet, unpack
 
 def fetch_departments(config):
     """ Fetches departments from network storage. """
@@ -114,12 +113,14 @@ def update_database(config, filename):
         for line in fin:
             groups.append(json.loads(line.strip()))
 
-    connmsg = DBHandler.create_connmsg(server=config.get("DATABASE", "server"),
-                                       driver=config.get("DATABASE", "driver"),
-                                       database=config.get("DATABASE", "database"),
-                                       username=config.get("DATABASE", "username"),
-                                       password=config.get("DATABASE", "password"),
-                                       trusted=config.get("DATABASE", "trusted_connection"))
+    connmsg = create_connmsg(
+        svr=config.get("DATABASE", "server"),
+        drv=config.get("DATABASE", "driver"),
+        db=config.get("DATABASE", "database"),
+        un=config.get("DATABASE", "username"),
+        pwd=config.get("DATABASE", "password"),
+        tc=config.get("DATABASE", "trusted_connection")
+        )
 
     conn = pyodbc.connect(connmsg)
     cur = conn.cursor()
@@ -147,12 +148,14 @@ def update_database(config, filename):
 def get_staged_users(config, filename):
     """ Fetches and dumps users currently in staging table to file. """
 
-    connmsg = DBHandler.create_connmsg(server=config.get("DATABASE", "server"),
-                                       driver=config.get("DATABASE", "driver"),
-                                       database=config.get("DATABASE", "database"),
-                                       username=config.get("DATABASE", "username"),
-                                       password=config.get("DATABASE", "password"),
-                                       trusted=config.get("DATABASE", "trusted_connection"))
+    connmsg = create_connmsg(
+        svr=config.get("DATABASE", "server"),
+        drv=config.get("DATABASE", "driver"),
+        db=config.get("DATABASE", "database"),
+        un=config.get("DATABASE", "username"),
+        pwd=config.get("DATABASE", "password"),
+        tc=config.get("DATABASE", "trusted_connection")
+        )
 
     conn = pyodbc.connect(connmsg)
     cur = conn.cursor()
@@ -214,12 +217,14 @@ def verify_database(config, filenames):
     else:
         endings = '\r\n\r\n'
 
-    connmsg = DBHandler.create_connmsg(server=config.get("DATABASE", "server"),
-                                       driver=config.get("DATABASE", "driver"),
-                                       database=config.get("DATABASE", "database"),
-                                       username=config.get("DATABASE", "username"),
-                                       password=config.get("DATABASE", "password"),
-                                       trusted=config.get("DATABASE", "trusted_connection"))
+    connmsg = create_connmsg(
+        svr=config.get("DATABASE", "server"),
+        drv=config.get("DATABASE", "driver"),
+        db=config.get("DATABASE", "database"),
+        un=config.get("DATABASE", "username"),
+        pwd=config.get("DATABASE", "password"),
+        tc=config.get("DATABASE", "trusted_connection")
+        )
 
     conn = pyodbc.connect(connmsg)
     cur = conn.cursor()
