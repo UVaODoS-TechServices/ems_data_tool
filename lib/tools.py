@@ -126,13 +126,13 @@ def pack(items):
         yield {key: value}
 
 
-def create_connmsg(svr, drv, db, un, pw, tc):
+def create_connmsg(svr, drv, db, un, pwd, tc):
     """ Creates a string that can be used to connect using pyodbc. """
 
     connmsg = "SERVER={svr};DRIVER={drv};DATABASE={db};"
     connmsg += "UID={un};PWD={pwd};Trusted_Connection={tc};"
     
-    return connmsg.format(svr=svr, drv=drv, db=db, un=un, pw=pw, tc=tc)
+    return connmsg.format(svr=svr, drv=drv, db=db, un=un, pwd=pwd, tc=tc)
 
 
 if __name__ == "__main__":
