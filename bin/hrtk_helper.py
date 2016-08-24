@@ -1,42 +1,44 @@
-#! /usr/bin/env python
 # -*- coding: utf-8 -*-
+
+""" Utility for updating ems staging database. """
+
+from ConfigParser import SafeConfigParser
+from argparse import ArgumentParser
 
 import pyodbc
 
-from argparse import ArgumentParser
-from ConfigParser import SafeConfigParser
+from lib.tools import create_connmsg
 
 def main():
+    """ Where the magic happens. """
     parser = ArgumentParser()
     parser.add_argument(
-                        "-c",
-                        "--configfile",
-                        nargs='?',
-                        help="filename that contains configuration data (i.e. somefile.ini)",
-                        required=True
-                       )
-    
+        "-c",
+        "--configfile",
+        nargs='?',
+        help="filename that contains configuration data (i.e. somefile.ini)",
+        required=True
+        )
+
     args = parser.parse_args()
-    
+
     config = SafeConfigParser()
     config.optionxform(str())
 
     config.read(args.configfile)
 
-    connstr = "SERVER=%s;DRIVER=%s;DATABASE=%s;UID=%s;PWD=%s;Trusted_Connection=%s;" 
-    connstr = connstr % (
-                         config.get("DATABASE", "server"),
-                         config.get("DATABASE", "driver"),
-                         config.get("DATABASE", "database"),
-                         config.get("DATABASE", "username"),
-                         config.get("DATABASE", "password"),
-                         config.get("DATABASE", "trusted_connection"),
-                        )
+    connmsg = create_connmsg(svr=config.get("DATABASE", "server"),
+                             drv=config.get("DATABASE", "driver"),
+                             db=config.get("DATABASE", "database"),
+                             un=config.get("DATABASE", "username"),
+                             pwd=config.get("DATABASE", "password"),
+                             tc=config.get("DATABASE", "trusted_connection"))
 
-    conn = pyodbc.connect(connstr)
+    conn = pyodbc.connect(connmsg)
     cur = conn.cursor()
 
     cur.execute("USE EMS;")
+
     try:
         cur.execute("EXEC EMS.dbo.HRTK_Update_Group;")
 
@@ -47,7 +49,7 @@ def main():
 
         print "Update Successful!"
 
-    except Exception:
+    except:
         print "An error occurred, could not update"
 
         raise
