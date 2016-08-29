@@ -7,7 +7,7 @@ import json
 from argparse import ArgumentParser
 from ConfigParser import SafeConfigParser
 
-from bin.ems_update import fetch_departments, prune_failed
+from ems_update import fetch_departments, prune_failed
 from lib.groups import process_departments
 from lib.tools import unpack
 

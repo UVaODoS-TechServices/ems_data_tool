@@ -5,7 +5,7 @@
 from argparse import ArgumentParser
 from ConfigParser import SafeConfigParser
 
-from bin.ems_update import verify_database
+from ems_update import verify_database
 
 def main():
     """ Where the magic happens. """
@@ -33,11 +33,11 @@ def main():
     config.read(args.configfile)
     result = verify_database(config, args.filenames)
 
-    if result:
-        print "passed!"
+    if len(result) > 0:
+        print "failed!", result
 
     else:
-        print "failed!", result
+        print "passed!"
 
 
 if __name__ == "__main__":

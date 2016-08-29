@@ -229,7 +229,7 @@ def verify_database(config, filenames):
     conn = pyodbc.connect(connmsg)
     cur = conn.cursor()
 
-    retval = []
+    results = []
 
     for filename in filenames:
         if not os.path.exists(filename):
@@ -242,29 +242,22 @@ def verify_database(config, filenames):
         for datum in data:
             cur.execute(datum)
 
-        results = []
-        result = cur.fetchone()
+        temp = cur.fetchall()
 
-        while result is not None and result != '':
-            results.append([field for field in result])
-            result = cur.fetchone()
-
-        retval.extend(results)
+        for tem in temp:
+            results.append([field for field in tem])
 
     if len(results) > 0:
-        with open("errors.txt", 'w') as fout:
+        with open("errors.txt", 'a+') as fout:
             for result in results:
                 if isinstance(result, str):
                     fout.write(result)
 
                 else:
-                    print result
-                    sys.exit(-1)
                     fout.write(json.dumps(result))
 
-        return False
-
-    return True
+    print results
+    return results
 
 
 def prune_failed(departments):
