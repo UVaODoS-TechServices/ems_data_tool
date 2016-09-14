@@ -294,6 +294,13 @@ def main():
         help="filename that contains configuration data (i.e. somefile.ini)",
         required=True
         )
+    parser.add_argument(
+        'f',
+        "--filenames",
+        nargs='*',
+        help="filenames containing scripts to verify database (i.e. somefile.sql)",
+        required=True
+        )
 
     args = parser.parse_args()
     filename = args.outfile
@@ -338,7 +345,7 @@ def main():
     process.join()
 
     update_database(config, args.outfile)
-    results = verify_database(config, ("PeopleCheck.sql", "GroupCheck.sql"))
+    results = verify_database(config, *args.filenames)
     
     if not results:
         sys.exit(0)
