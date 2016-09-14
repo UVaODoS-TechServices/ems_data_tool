@@ -41,7 +41,7 @@ def parse_spreadsheet(file_obj):
         if len(result) < len(headers):
             continue
 
-        for field_i, field in enumerate(headers):
+        for field_i, field in enumerate(result):
             temp[headers[field_i]] = field
 
         results[row_i] = temp

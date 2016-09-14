@@ -3,11 +3,13 @@
 """ Utility for fetching a list of departments. """
 
 import json
+import sys
 
 from argparse import ArgumentParser
 from ConfigParser import SafeConfigParser
+from multiprocessing import Process, Queue
 
-from ems_update import fetch_departments, prune_failed
+from ems_update import fetch_departments, prune_failed, WritingWorker
 from lib.groups import process_departments
 from lib.tools import unpack
 
@@ -36,13 +38,19 @@ def main():
     config.optionxform(str())
     config.read(args.configfile)
 
-    departments = list(fetch_departments(config))
-    departments = prune_failed(departments)
-    groups = unpack(process_departments(departments, config))
+    worker = WritingWorker(args.outfile)
+    queue = Queue()
+    process = Process(target=worker.run, args=(queue,))
+    process.isDaemon = True
+    process.start()
 
-    with open(args.outfile, 'w') as fout:
-        for group in groups:
-            fout.write(json.dumps(group) + '\n')
+    for department in prune_failed(list(fetch_departments(config))):
+        queue.put(process_departments([department], config))
+    
+    queue.put("STOP")
+    process.join()
+
+    sys.exit(0)
 
 
 if __name__ == "__main__":

@@ -255,9 +255,8 @@ def verify_database(config, filenames):
 
                 else:
                     fout.write(json.dumps(result))
-
-    print results
-    return results
+        
+        return results
 
 
 def prune_failed(departments):
@@ -282,17 +281,24 @@ def main():
 
     parser = ArgumentParser()
     parser.add_argument(
-        "-o",
+        '-o',
         "--outfile",
         nargs='?',
         help="filename to output data to (i.e. somefile.json)",
         required=True
         )
     parser.add_argument(
-        "-c",
+        '-c',
         "--configfile",
         nargs='?',
         help="filename that contains configuration data (i.e. somefile.ini)",
+        required=True
+        )
+    parser.add_argument(
+        'f',
+        "--filenames",
+        nargs='*',
+        help="filenames containing scripts to verify database (i.e. somefile.sql)",
         required=True
         )
 
@@ -338,7 +344,13 @@ def main():
     queue.put("STOP")
     process.join()
 
-    sys.exit(0)
+    update_database(config, args.outfile)
+    results = verify_database(config, *args.filenames)
+    
+    if not results:
+        sys.exit(0)
+    
+    sys.exit(-1)
 
 
 if __name__ == "__main__":
